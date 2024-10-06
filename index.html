@@ -7,22 +7,45 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background-color: #f0f4f8;
             padding: 20px;
+            margin: 0;
         }
 
         h1 {
             text-align: center;
+            color: #333;
+        }
+
+        .subject-container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .subject-header {
+            padding: 15px;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .tasks {
+            display: none;
+            padding: 10px;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 20px 0;
+            margin: 10px 0;
         }
 
         th, td {
-            border: 1px solid #ccc;
+            border: 1px solid #ddd;
             padding: 10px;
             text-align: left;
         }
@@ -30,10 +53,6 @@
         th {
             background-color: #4CAF50;
             color: white;
-        }
-
-        td {
-            background-color: white;
         }
 
         td input[type="checkbox"] {
@@ -44,69 +63,168 @@
             margin-top: 20px;
             padding: 10px;
             background-color: #fff;
-            border: 1px solid #ccc;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         #submit-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
             margin: 20px 0;
             padding: 10px 20px;
             background-color: #4CAF50;
             color: white;
             border: none;
+            border-radius: 5px;
             cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
         }
 
         #submit-button:hover {
             background-color: #45a049;
         }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #555;
+        }
     </style>
 </head>
 <body>
     <h1>Subject Tracker</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Subject</th>
-                <th>Task</th>
-                <th>Complete</th>
-            </tr>
-        </thead>
-        <tbody id="task-table-body">
-            <!-- Rows will be populated by JavaScript -->
-        </tbody>
-    </table>
+
+    <div class="subject-container">
+        <div class="subject-header" onclick="toggleTasks('computer-network')">Computer Network</div>
+        <div class="tasks" id="computer-network">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Task</th>
+                        <th>Complete</th>
+                    </tr>
+                </thead>
+                <tbody id="computer-network-tasks">
+                    <!-- Rows will be populated by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="subject-container">
+        <div class="subject-header" onclick="toggleTasks('database-management')">Database Management</div>
+        <div class="tasks" id="database-management">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Task</th>
+                        <th>Complete</th>
+                    </tr>
+                </thead>
+                <tbody id="database-management-tasks">
+                    <!-- Rows will be populated by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="subject-container">
+        <div class="subject-header" onclick="toggleTasks('software-engineering')">Software Engineering</div>
+        <div class="tasks" id="software-engineering">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Task</th>
+                        <th>Complete</th>
+                    </tr>
+                </thead>
+                <tbody id="software-engineering-tasks">
+                    <!-- Rows will be populated by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="subject-container">
+        <div class="subject-header" onclick="toggleTasks('dwm')">DWM</div>
+        <div class="tasks" id="dwm">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Task</th>
+                        <th>Complete</th>
+                    </tr>
+                </thead>
+                <tbody id="dwm-tasks">
+                    <!-- Rows will be populated by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
 
     <button id="submit-button" onclick="showPendingTasks()">Submit</button>
 
     <div id="pending-tasks"></div>
 
+    <footer>
+        <p>Subjects: Computer Network, Database Management, Software Engineering, DWM</p>
+        <p>Made by Dhiraj</p>
+    </footer>
+
     <script>
         const subjects = [
             {
                 name: 'Computer Network',
-                tasks: Array.from({ length: 10 }, (_, i) => ({ name: `Experience ${i + 1}`, complete: false }))
+                tasks: [
+                    ...Array.from({ length: 10 }, (_, i) => ({ name: `Experience ${i + 1}`, complete: false })),
+                    ...Array.from({ length: 2 }, (_, i) => ({ name: `Assignment ${i + 1}`, complete: false }))
+                ]
+            },
+            {
+                name: 'Database Management',
+                tasks: [
+                    ...Array.from({ length: 10 }, (_, i) => ({ name: `Experience ${i + 1}`, complete: false })),
+                    ...Array.from({ length: 2 }, (_, i) => ({ name: `Assignment ${i + 1}`, complete: false }))
+                ]
             },
             {
                 name: 'Software Engineering',
-                tasks: Array.from({ length: 2 }, (_, i) => ({ name: `Assignment ${i + 1}`, complete: false }))
+                tasks: [
+                    ...Array.from({ length: 10 }, (_, i) => ({ name: `Experience ${i + 1}`, complete: false })),
+                    ...Array.from({ length: 2 }, (_, i) => ({ name: `Assignment ${i + 1}`, complete: false }))
+                ]
+            },
+            {
+                name: 'DWM',
+                tasks: [
+                    ...Array.from({ length: 10 }, (_, i) => ({ name: `Experience ${i + 1}`, complete: false })),
+                    ...Array.from({ length: 2 }, (_, i) => ({ name: `Assignment ${i + 1}`, complete: false }))
+                ]
             }
         ];
 
         function loadTasks() {
-            const taskTableBody = document.getElementById('task-table-body');
-            taskTableBody.innerHTML = ''; // Clear existing rows
-
             subjects.forEach(subject => {
+                const taskTableBody = document.getElementById(`${subject.name.toLowerCase().replace(/ /g, '-')}-tasks`);
+                taskTableBody.innerHTML = ''; // Clear existing rows
+
                 subject.tasks.forEach(task => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
-                        <td>${subject.name}</td>
                         <td>${task.name}</td>
                         <td><input type="checkbox" ${task.complete ? 'checked' : ''} onchange="toggleComplete('${subject.name}', '${task.name}', this.checked)"></td>
                     `;
                     taskTableBody.appendChild(row);
                 });
             });
+        }
+
+        function toggleTasks(subjectId) {
+            const tasksDiv = document.getElementById(subjectId);
+            tasksDiv.style.display = tasksDiv.style.display === 'block' ? 'none' : 'block';
         }
 
         function toggleComplete(subjectName, taskName, isComplete) {
