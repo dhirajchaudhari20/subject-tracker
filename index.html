@@ -39,6 +39,26 @@
         td input[type="checkbox"] {
             cursor: pointer;
         }
+
+        #pending-tasks {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+        }
+
+        #submit-button {
+            margin: 20px 0;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        #submit-button:hover {
+            background-color: #45a049;
+        }
     </style>
 </head>
 <body>
@@ -55,6 +75,10 @@
             <!-- Rows will be populated by JavaScript -->
         </tbody>
     </table>
+
+    <button id="submit-button" onclick="showPendingTasks()">Submit</button>
+
+    <div id="pending-tasks"></div>
 
     <script>
         const subjects = [
@@ -101,6 +125,21 @@
             const savedTasks = localStorage.getItem('subjectTasks');
             if (savedTasks) {
                 Object.assign(subjects, JSON.parse(savedTasks));
+            }
+        }
+
+        function showPendingTasks() {
+            const pendingTasksDiv = document.getElementById('pending-tasks');
+            pendingTasksDiv.innerHTML = ''; // Clear existing content
+
+            const pendingTasks = subjects.flatMap(subject => 
+                subject.tasks.filter(task => !task.complete).map(task => `${subject.name}: ${task.name}`)
+            );
+
+            if (pendingTasks.length > 0) {
+                pendingTasksDiv.innerHTML = '<h3>Pending Tasks:</h3>' + pendingTasks.map(task => `<p>${task}</p>`).join('');
+            } else {
+                pendingTasksDiv.innerHTML = '<h3>No Pending Tasks!</h3>';
             }
         }
 
