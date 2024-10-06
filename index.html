@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subject Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        td {
+            background-color: white;
+        }
+
+        td input[type="checkbox"] {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Subject Tracker</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Subject</th>
+                <th>Task</th>
+                <th>Complete</th>
+            </tr>
+        </thead>
+        <tbody id="task-table-body">
+            <!-- Rows will be populated by JavaScript -->
+        </tbody>
+    </table>
+
+    <script>
+        const subjects = [
+            {
+                name: 'Computer Network',
+                tasks: Array.from({ length: 10 }, (_, i) => ({ name: `Experience ${i + 1}`, complete: false }))
+            },
+            {
+                name: 'Software Engineering',
+                tasks: Array.from({ length: 2 }, (_, i) => ({ name: `Assignment ${i + 1}`, complete: false }))
+            }
+        ];
+
+        function loadTasks() {
+            const taskTableBody = document.getElementById('task-table-body');
+            taskTableBody.innerHTML = ''; // Clear existing rows
+
+            subjects.forEach(subject => {
+                subject.tasks.forEach(task => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${subject.name}</td>
+                        <td>${task.name}</td>
+                        <td><input type="checkbox" ${task.complete ? 'checked' : ''} onchange="toggleComplete('${subject.name}', '${task.name}', this.checked)"></td>
+                    `;
+                    taskTableBody.appendChild(row);
+                });
+            });
+        }
+
+        function toggleComplete(subjectName, taskName, isComplete) {
+            const subject = subjects.find(s => s.name === subjectName);
+            const task = subject.tasks.find(t => t.name === taskName);
+            task.complete = isComplete;
+
+            saveTasks();
+        }
+
+        function saveTasks() {
+            localStorage.setItem('subjectTasks', JSON.stringify(subjects));
+        }
+
+        function loadSavedTasks() {
+            const savedTasks = localStorage.getItem('subjectTasks');
+            if (savedTasks) {
+                Object.assign(subjects, JSON.parse(savedTasks));
+            }
+        }
+
+        window.onload = function() {
+            loadSavedTasks();
+            loadTasks();
+        };
+    </script>
+</body>
+</html>
