@@ -38,6 +38,12 @@
             padding: 10px;
         }
 
+        h2 {
+            margin: 10px 0;
+            font-size: 1.2em;
+            color: #333;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -98,42 +104,9 @@
     <h1>Subject Tracker</h1>
 
     <div class="subject-container">
-        <div class="subject-header" onclick="toggleTasks('computer-network')">Computer Network</div>
-        <div class="tasks" id="computer-network">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Task</th>
-                        <th>Complete</th>
-                    </tr>
-                </thead>
-                <tbody id="computer-network-tasks">
-                    <!-- Rows will be populated by JavaScript -->
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <div class="subject-container">
-        <div class="subject-header" onclick="toggleTasks('database-management')">Database Management</div>
-        <div class="tasks" id="database-management">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Task</th>
-                        <th>Complete</th>
-                    </tr>
-                </thead>
-                <tbody id="database-management-tasks">
-                    <!-- Rows will be populated by JavaScript -->
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <div class="subject-container">
         <div class="subject-header" onclick="toggleTasks('software-engineering')">Software Engineering</div>
         <div class="tasks" id="software-engineering">
+            <h2>Experiences</h2>
             <table>
                 <thead>
                     <tr>
@@ -141,16 +114,25 @@
                         <th>Complete</th>
                     </tr>
                 </thead>
-                <tbody id="software-engineering-tasks">
-                    <!-- Rows will be populated by JavaScript -->
-                </tbody>
+                <tbody id="software-engineering-experience-tasks"></tbody>
+            </table>
+            <h2>Assignments</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Task</th>
+                        <th>Complete</th>
+                    </tr>
+                </thead>
+                <tbody id="software-engineering-assignment-tasks"></tbody>
             </table>
         </div>
     </div>
 
     <div class="subject-container">
-        <div class="subject-header" onclick="toggleTasks('dwm')">DWM</div>
-        <div class="tasks" id="dwm">
+        <div class="subject-header" onclick="toggleTasks('computer-network')">Computer Network</div>
+        <div class="tasks" id="computer-network">
+            <h2>Experiences</h2>
             <table>
                 <thead>
                     <tr>
@@ -158,9 +140,43 @@
                         <th>Complete</th>
                     </tr>
                 </thead>
-                <tbody id="dwm-tasks">
-                    <!-- Rows will be populated by JavaScript -->
-                </tbody>
+                <tbody id="computer-network-experience-tasks"></tbody>
+            </table>
+            <h2>Assignments</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Task</th>
+                        <th>Complete</th>
+                    </tr>
+                </thead>
+                <tbody id="computer-network-assignment-tasks"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="subject-container">
+        <div class="subject-header" onclick="toggleTasks('data-warehouse-mining')">Data Warehouse Mining</div>
+        <div class="tasks" id="data-warehouse-mining">
+            <h2>Experiences</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Task</th>
+                        <th>Complete</th>
+                    </tr>
+                </thead>
+                <tbody id="data-warehouse-mining-experience-tasks"></tbody>
+            </table>
+            <h2>Assignments</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Task</th>
+                        <th>Complete</th>
+                    </tr>
+                </thead>
+                <tbody id="data-warehouse-mining-assignment-tasks"></tbody>
             </table>
         </div>
     </div>
@@ -170,54 +186,52 @@
     <div id="pending-tasks"></div>
 
     <footer>
-        <p>Subjects: Computer Network, Database Management, Software Engineering, DWM</p>
+        <p>Subjects: Software Engineering, Computer Network, Data Warehouse Mining</p>
         <p>Made by Dhiraj</p>
     </footer>
 
     <script>
         const subjects = [
             {
-                name: 'Computer Network',
-                tasks: [
-                    ...Array.from({ length: 10 }, (_, i) => ({ name: `Experience ${i + 1}`, complete: false })),
-                    ...Array.from({ length: 2 }, (_, i) => ({ name: `Assignment ${i + 1}`, complete: false }))
-                ]
-            },
-            {
-                name: 'Database Management',
-                tasks: [
-                    ...Array.from({ length: 10 }, (_, i) => ({ name: `Experience ${i + 1}`, complete: false })),
-                    ...Array.from({ length: 2 }, (_, i) => ({ name: `Assignment ${i + 1}`, complete: false }))
-                ]
-            },
-            {
                 name: 'Software Engineering',
-                tasks: [
-                    ...Array.from({ length: 10 }, (_, i) => ({ name: `Experience ${i + 1}`, complete: false })),
-                    ...Array.from({ length: 2 }, (_, i) => ({ name: `Assignment ${i + 1}`, complete: false }))
-                ]
+                experiences: Array.from({ length: 12 }, (_, i) => ({ name: `Experience ${i + 1}`, complete: false })),
+                assignments: Array.from({ length: 2 }, (_, i) => ({ name: `Assignment ${i + 1}`, complete: false }))
             },
             {
-                name: 'DWM',
-                tasks: [
-                    ...Array.from({ length: 10 }, (_, i) => ({ name: `Experience ${i + 1}`, complete: false })),
-                    ...Array.from({ length: 2 }, (_, i) => ({ name: `Assignment ${i + 1}`, complete: false }))
-                ]
+                name: 'Computer Network',
+                experiences: Array.from({ length: 12 }, (_, i) => ({ name: `Experience ${i + 1}`, complete: false })),
+                assignments: Array.from({ length: 2 }, (_, i) => ({ name: `Assignment ${i + 1}`, complete: false }))
+            },
+            {
+                name: 'Data Warehouse Mining',
+                experiences: Array.from({ length: 12 }, (_, i) => ({ name: `Experience ${i + 1}`, complete: false })),
+                assignments: Array.from({ length: 2 }, (_, i) => ({ name: `Assignment ${i + 1}`, complete: false }))
             }
         ];
 
         function loadTasks() {
             subjects.forEach(subject => {
-                const taskTableBody = document.getElementById(`${subject.name.toLowerCase().replace(/ /g, '-')}-tasks`);
-                taskTableBody.innerHTML = ''; // Clear existing rows
+                const experienceTableBody = document.getElementById(`${subject.name.toLowerCase().replace(/ /g, '-')}-experience-tasks`);
+                const assignmentTableBody = document.getElementById(`${subject.name.toLowerCase().replace(/ /g, '-')}-assignment-tasks`);
+                experienceTableBody.innerHTML = ''; // Clear existing rows
+                assignmentTableBody.innerHTML = ''; // Clear existing rows
 
-                subject.tasks.forEach(task => {
+                subject.experiences.forEach(task => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
                         <td>${task.name}</td>
-                        <td><input type="checkbox" ${task.complete ? 'checked' : ''} onchange="toggleComplete('${subject.name}', '${task.name}', this.checked)"></td>
+                        <td><input type="checkbox" ${task.complete ? 'checked' : ''} onchange="toggleComplete('${subject.name}', 'experience', '${task.name}', this.checked)"></td>
                     `;
-                    taskTableBody.appendChild(row);
+                    experienceTableBody.appendChild(row);
+                });
+
+                subject.assignments.forEach(task => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${task.name}</td>
+                        <td><input type="checkbox" ${task.complete ? 'checked' : ''} onchange="toggleComplete('${subject.name}', 'assignment', '${task.name}', this.checked)"></td>
+                    `;
+                    assignmentTableBody.appendChild(row);
                 });
             });
         }
@@ -227,9 +241,9 @@
             tasksDiv.style.display = tasksDiv.style.display === 'block' ? 'none' : 'block';
         }
 
-        function toggleComplete(subjectName, taskName, isComplete) {
+        function toggleComplete(subjectName, type, taskName, isComplete) {
             const subject = subjects.find(s => s.name === subjectName);
-            const task = subject.tasks.find(t => t.name === taskName);
+            const task = subject[type === 'experience' ? 'experiences' : 'assignments'].find(t => t.name === taskName);
             task.complete = isComplete;
 
             saveTasks();
@@ -251,7 +265,9 @@
             pendingTasksDiv.innerHTML = ''; // Clear existing content
 
             const pendingTasks = subjects.flatMap(subject => 
-                subject.tasks.filter(task => !task.complete).map(task => `${subject.name}: ${task.name}`)
+                [...subject.experiences, ...subject.assignments]
+                    .filter(task => !task.complete)
+                    .map(task => `${subject.name}: ${task.name}`)
             );
 
             if (pendingTasks.length > 0) {
